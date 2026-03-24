@@ -1,0 +1,5237 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /applications/:
+    get:
+      operationId: applications_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - applications
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOAuthApplicationList'
+          description: ''
+    post:
+      operationId: applications_create
+      description: |-
+        Create a new access token for the current logged in user.
+
+        You can use this client to request access tokens like this:
+
+            curl -X POST                 -F 'client_id=<client_id>'                 -F 'client_secret=<client_secret>'                 -F 'grant_type=client_credentials'                 http://localhost:8000/o/token/
+      tags:
+      - applications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthApplication'
+          description: ''
+  /applications/{id}/:
+    get:
+      operationId: applications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthApplication'
+          description: ''
+    delete:
+      operationId: applications_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      responses:
+        '204':
+          description: No response body
+  /comments/:
+    get:
+      operationId: comments_list
+      parameters:
+      - in: query
+        name: log
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - comments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCommentList'
+          description: ''
+    post:
+      operationId: comments_create
+      tags:
+      - comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /comments/{id}/:
+    get:
+      operationId: comments_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this comment.
+        required: true
+      tags:
+      - comments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    put:
+      operationId: comments_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this comment.
+        required: true
+      tags:
+      - comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    patch:
+      operationId: comments_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this comment.
+        required: true
+      tags:
+      - comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    delete:
+      operationId: comments_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this comment.
+        required: true
+      tags:
+      - comments
+      responses:
+        '204':
+          description: No response body
+  /cuppingforms/:
+    get:
+      operationId: cuppingforms_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - cuppingforms
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCuppingFormList'
+          description: ''
+  /cuppingforms/{id}/:
+    get:
+      operationId: cuppingforms_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this cupping form.
+        required: true
+      tags:
+      - cuppingforms
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingForm'
+          description: ''
+  /cuppingforms/descriptors/:
+    get:
+      operationId: cuppingforms_descriptors_retrieve
+      tags:
+      - cuppingforms
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingForm'
+          description: ''
+  /cuppingsessions/:
+    get:
+      operationId: cuppingsessions_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - cuppingsessions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCuppingSessionList'
+          description: ''
+    post:
+      operationId: cuppingsessions_create
+      tags:
+      - cuppingsessions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingSession'
+          description: ''
+  /cuppingsessions/{id}/:
+    get:
+      operationId: cuppingsessions_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cupping session.
+        required: true
+      tags:
+      - cuppingsessions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingSession'
+          description: ''
+    patch:
+      operationId: cuppingsessions_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cupping session.
+        required: true
+      tags:
+      - cuppingsessions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCuppingSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCuppingSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCuppingSession'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingSession'
+          description: ''
+  /cuppingsessions/{id}/results/:
+    post:
+      operationId: cuppingsessions_results_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cupping session.
+        required: true
+      tags:
+      - cuppingsessions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CuppingSession'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingSession'
+          description: ''
+  /cuppingsessions/{id}/sessionconfig/:
+    get:
+      operationId: cuppingsessions_sessionconfig_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this cupping session.
+        required: true
+      tags:
+      - cuppingsessions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuppingSession'
+          description: ''
+  /customers/:
+    get:
+      operationId: customers_list
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - customers
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCustomerList'
+          description: ''
+  /customers/{id}/:
+    get:
+      operationId: customers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this customer.
+        required: true
+      tags:
+      - customers
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    put:
+      operationId: customers_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this customer.
+        required: true
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    patch:
+      operationId: customers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this customer.
+        required: true
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /datapoints/:
+    get:
+      operationId: datapoints_list
+      parameters:
+      - in: query
+        name: log
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: share_uuid
+        schema:
+          type: string
+          format: uuid
+      tags:
+      - datapoints
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDatapointList'
+          description: ''
+  /datapoints/{id}/:
+    get:
+      operationId: datapoints_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this datapoint.
+        required: true
+      tags:
+      - datapoints
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Datapoint'
+          description: ''
+  /flatpages/:
+    get:
+      operationId: flatpages_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - flatpages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFlatPageList'
+          description: ''
+  /flatpages/{id}/:
+    get:
+      operationId: flatpages_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this flat page.
+        required: true
+      tags:
+      - flatpages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlatPage'
+          description: ''
+  /inventories/:
+    get:
+      operationId: inventories_list
+      parameters:
+      - in: query
+        name: is_archived
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - inventories
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInventoryList'
+          description: ''
+    post:
+      operationId: inventories_create
+      tags:
+      - inventories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+          description: ''
+  /inventories/{id}/:
+    get:
+      operationId: inventories_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this inventory.
+        required: true
+      tags:
+      - inventories
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+          description: ''
+    put:
+      operationId: inventories_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this inventory.
+        required: true
+      tags:
+      - inventories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+          description: ''
+    patch:
+      operationId: inventories_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this inventory.
+        required: true
+      tags:
+      - inventories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInventory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInventory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInventory'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+          description: ''
+    delete:
+      operationId: inventories_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this inventory.
+        required: true
+      tags:
+      - inventories
+      responses:
+        '204':
+          description: No response body
+  /invites/{id}/:
+    get:
+      operationId: invites_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+  /invites/{id}/assign_to_current/:
+    post:
+      operationId: invites_assign_to_current_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Invite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Invite'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+  /invites/{id}/create_user/:
+    post:
+      operationId: invites_create_user_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Invite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Invite'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+  /invites/self/:
+    get:
+      operationId: invites_self_retrieve
+      description: |-
+        !
+        " Roaster communications endpoint
+        " Let a roaster check if the roaster has valid invites
+      tags:
+      - invites
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+  /logs/:
+    get:
+      operationId: logs_list
+      parameters:
+      - in: query
+        name: batch_uuid
+        schema:
+          type: integer
+      - in: query
+        name: event_flags
+        schema:
+          type: integer
+      - in: query
+        name: from_timestamp
+        schema:
+          type: number
+      - in: query
+        name: ids
+        schema:
+          type: array
+          items:
+            type: string
+        explode: true
+        style: form
+      - in: query
+        name: inventory
+        schema:
+          type: integer
+      - in: query
+        name: machine
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: to_timestamp
+        schema:
+          type: number
+      tags:
+      - logs
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLogList'
+          description: ''
+    post:
+      operationId: logs_create
+      description: |-
+        " Allow creation of new logs from P2000
+        " This log will be marked as the new live roast.
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/:
+    get:
+      operationId: logs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    put:
+      operationId: logs_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    patch:
+      operationId: logs_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    delete:
+      operationId: logs_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      responses:
+        '204':
+          description: No response body
+  /logs/{id}/events/:
+    post:
+      operationId: logs_events_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/inventory/:
+    post:
+      operationId: logs_inventory_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/next/:
+    get:
+      operationId: logs_next_retrieve
+      description: '" Return next completed log for this machine by batch_no (if any)'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/prev/:
+    get:
+      operationId: logs_prev_retrieve
+      description: '" Return previous completed log for this machine by batch_no (if
+        any)'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/share_uuid/:
+    put:
+      operationId: logs_share_uuid_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/{id}/weights/:
+    post:
+      operationId: logs_weights_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/delete_multiple_logs/:
+    post:
+      operationId: logs_delete_multiple_logs_create
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /logs/downloadcsv/:
+    post:
+      operationId: logs_downloadcsv_create
+      tags:
+      - logs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /machines/:
+    get:
+      operationId: machines_list
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - in: query
+        name: owner
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: slug
+        schema:
+          type: string
+      tags:
+      - machines
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMachineList'
+          description: ''
+  /machines/{id}/:
+    get:
+      operationId: machines_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this machine.
+        required: true
+      tags:
+      - machines
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
+          description: ''
+  /machines/{id}/bbp_profile/:
+    post:
+      operationId: machines_bbp_profile_create
+      description: '" @brief        Endpoint to set/delete bbp profile on the machine.'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this machine.
+        required: true
+      tags:
+      - machines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BBPProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BBPProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BBPProfile'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BBPProfile'
+          description: ''
+    delete:
+      operationId: machines_bbp_profile_destroy
+      description: '" @brief        Endpoint to set/delete bbp profile on the machine.'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this machine.
+        required: true
+      tags:
+      - machines
+      responses:
+        '204':
+          description: No response body
+  /machines/set_elevation/:
+    post:
+      operationId: machines_set_elevation_create
+      tags:
+      - machines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Machine'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Machine'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Machine'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
+          description: ''
+  /machines/totalroasts/:
+    get:
+      operationId: machines_totalroasts_retrieve
+      tags:
+      - machines
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
+          description: ''
+  /machineslots/:
+    get:
+      operationId: machineslots_list
+      parameters:
+      - in: query
+        name: machine
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - machineslots
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMachineSlotList'
+          description: ''
+    post:
+      operationId: machineslots_create
+      description: '" @brief        Used for assigning profiles'
+      tags:
+      - machineslots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineSlot'
+          description: ''
+  /machineslots/{id}/:
+    get:
+      operationId: machineslots_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this machine slot.
+        required: true
+      tags:
+      - machineslots
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineSlot'
+          description: ''
+    delete:
+      operationId: machineslots_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this machine slot.
+        required: true
+      tags:
+      - machineslots
+      responses:
+        '204':
+          description: No response body
+  /machineslots/assign/:
+    post:
+      operationId: machineslots_assign_create
+      tags:
+      - machineslots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineSlot'
+          description: ''
+  /machineslots/unassign/:
+    post:
+      operationId: machineslots_unassign_create
+      tags:
+      - machineslots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MachineSlot'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineSlot'
+          description: ''
+  /pcbs/self/:
+    get:
+      operationId: pcbs_self_retrieve
+      tags:
+      - pcbs
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2000PCB'
+          description: ''
+  /profiles/:
+    get:
+      operationId: profiles_list
+      parameters:
+      - in: query
+        name: is_bbp_profile
+        schema:
+          type: boolean
+      - in: query
+        name: machinetype
+        schema:
+          type: array
+          items:
+            type: integer
+            nullable: true
+            enum:
+            - 0
+            - 1
+            - 2
+        description: |-
+          machinetype
+
+          * `0` - S100/L100
+          * `1` - P3000
+          * `2` - S100/L100 p17
+        explode: true
+        style: form
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: profile_type
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+        description: |-
+          * `0` - Air Temperature Profile
+          * `1` - Bean Temperature Profile
+          * `2` - Power Profile
+          * `3` - Hybrid Air Temperature
+          * `4` - Hybrid Bean Temperature
+          * `5` - Inlet Temperature Profile
+          * `6` - Power by Bean Temperature
+          * `7` - Inlet Temperature by Bean Temperature
+      - in: query
+        name: reversed_drum_direction
+        schema:
+          type: boolean
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: share_uuid
+        schema:
+          type: string
+          format: uuid
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfileList'
+          description: ''
+    post:
+      operationId: profiles_create
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/{id}/:
+    get:
+      operationId: profiles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    put:
+      operationId: profiles_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    patch:
+      operationId: profiles_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfile'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    delete:
+      operationId: profiles_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      responses:
+        '204':
+          description: No response body
+  /profiles/{id}/enable_public_share/:
+    put:
+      operationId: profiles_enable_public_share_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/{id}/enable_share/:
+    put:
+      operationId: profiles_enable_share_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/{id}/parents/:
+    get:
+      operationId: profiles_parents_retrieve
+      description: '" Return any parents for the the profile specified by pk'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/{id}/rating/:
+    get:
+      operationId: profiles_rating_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    post:
+      operationId: profiles_rating_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/{id}/remove_public_share/:
+    delete:
+      operationId: profiles_remove_public_share_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this profile.
+        required: true
+      tags:
+      - profiles
+      responses:
+        '204':
+          description: No response body
+  /profiles/branch/:
+    post:
+      operationId: profiles_branch_create
+      description: |-
+        " @brief        Create a new profile, as a branch of an existing profile.
+        "               The existing profile will continue as a leaf.
+        "
+        " @detail       A regular POST to the `profiles` endpoint, will
+        "               create a new version of the profile you posted
+        "               and remove the `is_leaf` status of the parent profile.
+        "               By using this endpoint, you can create a new profile,
+        "               while maintaining the `is_leaf` status of the parent.
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/delete_multiple/:
+    post:
+      operationId: profiles_delete_multiple_create
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Profile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/library/:
+    get:
+      operationId: profiles_library_retrieve
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /profiles/metadata_filters/:
+    get:
+      operationId: profiles_metadata_filters_retrieve
+      tags:
+      - profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+  /systemmessages/:
+    get:
+      operationId: systemmessages_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - systemmessages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSystemMessageList'
+          description: ''
+  /systemmessages/{id}/:
+    get:
+      operationId: systemmessages_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this system message.
+        required: true
+      tags:
+      - systemmessages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemMessage'
+          description: ''
+  /two_factor/activate/:
+    put:
+      operationId: two_factor_activate_update
+      tags:
+      - two_factor
+      responses:
+        '200':
+          description: No response body
+  /two_factor/qrcode/:
+    get:
+      operationId: two_factor_qrcode_retrieve
+      tags:
+      - two_factor
+      responses:
+        '200':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      parameters:
+      - in: query
+        name: email
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: username
+        schema:
+          type: string
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+  /users/{id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /users/{id}/password/:
+    put:
+      operationId: users_password_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /users/self/:
+    get:
+      operationId: users_self_retrieve
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /usersetting/reset_table/:
+    put:
+      operationId: usersetting_reset_table_update
+      tags:
+      - usersetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSetting'
+          description: ''
+  /usersetting/update_attribute/:
+    put:
+      operationId: usersetting_update_attribute_update
+      tags:
+      - usersetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSetting'
+          description: ''
+  /usersetting/update_column_setting/:
+    put:
+      operationId: usersetting_update_column_setting_update
+      tags:
+      - usersetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSetting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSetting'
+          description: ''
+components:
+  schemas:
+    BBPProfile:
+      type: object
+      description: |-
+        " @brief        Serializer for the bbp_profile endpoint.
+        "
+        " @detail       The only field on this serializer is the
+        "               bbp_profile on the machine model.
+        "
+        "               We also do extra validation on this field
+        "               to check that the profile that is assigned
+        "               is owned by the user.
+      properties:
+        bbp_profile:
+          type: string
+          format: uri
+          nullable: true
+    BBPProfileMetadata:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set on shared profiles
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        parent:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        profile_type:
+          allOf:
+          - $ref: '#/components/schemas/ProfileTypeEnum'
+          minimum: 0
+          maximum: 65535
+        runlength:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
+            Roasting Time Target</i> for new profiles!'
+        preheat_temperature:
+          type: number
+          format: double
+        batch_weight:
+          type: number
+          format: double
+        end_condition:
+          allOf:
+          - $ref: '#/components/schemas/EndConditionEnum'
+          minimum: 0
+          maximum: 65535
+        end_condition_value:
+          type: number
+          format: double
+          description: Time in milliseconds, Percentage from 0 -> 100 or Temperature
+            in Celsius
+        is_bbp_profile:
+          type: boolean
+          title: Between batch protocol
+          description: Between batch protocol profile
+        reversed_drum_direction:
+          type: boolean
+          description: Profile roasts with reversed drum direction
+        public_share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set when a profile is shared in public profile
+            library
+        public_share_disabled:
+          type: boolean
+          description: Set to True to hide profile from public profile library
+        is_leaf:
+          type: boolean
+          description: True if this item is the latest version of the profile
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        is_verified:
+          type: boolean
+          description: Set to true to add a validation star in the public profile
+            library
+        machinetype:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/MachinetypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        customer:
+          type: string
+          format: uri
+        metadata_image:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - created
+      - customer
+      - id
+      - modified
+      - name
+      - parent
+      - profile_type
+      - share_uuid
+      - url
+    BeanProcessEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      description: |-
+        * `1` - Natural
+        * `2` - Washed
+        * `3` - Honey / pulped natural
+        * `4` - Other
+        * `5` - Anaerobic / extended fermentation
+        * `6` - Decaf
+    BeanSizeEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      description: |-
+        * `1` - Very large
+        * `2` - Large
+        * `3` - Medium
+        * `4` - Small
+        * `5` - Shells
+    BetaFeature:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - name
+    ColorThemeEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Light mode
+        * `1` - Dark mode
+        * `2` - Browser default
+    ColumnSetting:
+      type: object
+      properties:
+        column_id:
+          type: string
+          maxLength: 30
+        visible:
+          type: boolean
+          nullable: true
+      required:
+      - column_id
+    Comment:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        comment:
+          type: string
+        cupping_score:
+          type: string
+          nullable: true
+          maxLength: 20
+        log:
+          type: string
+          format: uri
+        author:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - comment
+      - created
+      - log
+      - modified
+      - url
+    CuppingDescriptor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - id
+    CuppingFieldValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          nullable: true
+          maxLength: 255
+        value:
+          type: number
+          format: double
+        parent_field_type:
+          type: integer
+      required:
+      - id
+      - parent_field_type
+    CuppingForm:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        status:
+          nullable: true
+          description: |-
+            Customers can only select Public forms when creating a new cupping session. Admins can also select Interal forms when creating a new cupping session.
+
+            * `0` - Disabled
+            * `1` - Internal
+            * `2` - Public
+            * `None` - Unknown
+          oneOf:
+          - $ref: '#/components/schemas/CuppingFormStatusEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        enable_descriptors:
+          type: boolean
+        enable_notes:
+          type: boolean
+        score_calculation:
+          nullable: true
+          description: |-
+            Score is calculated from fields where included_in_score is set
+
+            * `0` - None
+            * `1` - Aggregated
+            * `2` - Average
+            * `None` - Unknown
+          oneOf:
+          - $ref: '#/components/schemas/ScoreCalculationEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        score_constant:
+          type: number
+          format: double
+          nullable: true
+          description: Value to add to or subtract from final score
+        form_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingFormField'
+          readOnly: true
+      required:
+      - form_fields
+      - id
+      - url
+    CuppingFormField:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        field_label:
+          type: string
+          nullable: true
+          maxLength: 255
+        field_type_name:
+          type: string
+          readOnly: true
+        field_type:
+          type: integer
+          readOnly: true
+        field_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingFieldValue'
+        default_value:
+          type: number
+          format: double
+          readOnly: true
+        included_in_score:
+          type: boolean
+        order:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          nullable: true
+          description: Fields are displayed in order, lowest order number first
+      required:
+      - default_value
+      - field_type
+      - field_type_name
+      - field_values
+      - id
+    CuppingFormStatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      description: |-
+        * `0` - Disabled
+        * `1` - Internal
+        * `2` - Public
+        * `None` - Unknown
+    CuppingLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 200
+        batch_no:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        machine_slug:
+          type: string
+          readOnly: true
+        profile_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        profile_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        profile_data:
+          allOf:
+          - $ref: '#/components/schemas/EmbeddedProfile'
+          readOnly: true
+        inventory_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        inventory_name:
+          type: string
+          readOnly: true
+        bean_name:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - id
+      - inventory_id
+      - inventory_name
+      - machine_slug
+      - profile_data
+      - profile_id
+    CuppingSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        cupping_form:
+          type: string
+          format: uri
+        cupping_form_data:
+          allOf:
+          - $ref: '#/components/schemas/CuppingForm'
+          readOnly: true
+        customer:
+          type: string
+          format: uri
+        is_blind:
+          type: boolean
+        status:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CuppingSessionStatusEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        cupping_samples:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionSample'
+        session_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionResult'
+          readOnly: true
+      required:
+      - created
+      - cupping_form
+      - cupping_form_data
+      - cupping_samples
+      - customer
+      - id
+      - modified
+      - name
+      - session_scores
+      - url
+    CuppingSessionResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        evaluator_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        user:
+          type: string
+          format: uri
+          nullable: true
+        cupping_session:
+          type: string
+          format: uri
+        sample_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionSampleResult'
+      required:
+      - cupping_session
+      - id
+      - sample_scores
+    CuppingSessionSample:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        log:
+          type: string
+          format: uri
+          nullable: true
+        log_data:
+          allOf:
+          - $ref: '#/components/schemas/CuppingLog'
+          readOnly: true
+        external_log_name:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - id
+      - log_data
+    CuppingSessionSampleResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        descriptors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingDescriptor'
+        cupping_session_sample:
+          type: integer
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionSampleResultScore'
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        total_score:
+          type: number
+          format: double
+          nullable: true
+      required:
+      - cupping_session_sample
+      - descriptors
+      - id
+      - scores
+    CuppingSessionSampleResultScore:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cupping_form_field:
+          type: integer
+        score:
+          type: number
+          format: double
+      required:
+      - cupping_form_field
+      - id
+    CuppingSessionStatusEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      description: |-
+        * `1` - In progress
+        * `2` - Closed
+        * `3` - Deleted
+        * `None` - Unknown
+    Customer:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        import_profile:
+          type: string
+          format: uri
+          writeOnly: true
+        enabled_beta_features:
+          type: array
+          items:
+            $ref: '#/components/schemas/BetaFeature'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - enabled_beta_features
+      - name
+      - url
+    DataTypeEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Event
+        * `1` - Data
+    Datapoint:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        data_type:
+          allOf:
+          - $ref: '#/components/schemas/DataTypeEnum'
+          minimum: 0
+          maximum: 65535
+        event_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/EventTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        fan:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        heat:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        bt:
+          type: number
+          format: double
+          nullable: true
+        et:
+          type: number
+          format: double
+          nullable: true
+        target:
+          type: number
+          format: double
+          nullable: true
+        rpm:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        crack:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        drum_temp:
+          type: number
+          format: double
+          nullable: true
+          description: Drum temperature in degrees Celsius
+        inlet_temp:
+          type: number
+          format: double
+          nullable: true
+          description: Inlet temperature in degrees Celsius
+        air_pressure:
+          type: number
+          format: double
+          nullable: true
+          description: Air pressure in Pascal
+        pcb_temperature:
+          type: number
+          format: double
+          nullable: true
+          description: Temperature measured on PCB in Celsius
+        pcb_humidity:
+          type: number
+          format: double
+          nullable: true
+          description: Humidity measured on PCB in percentage
+        msec:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        rtd0:
+          type: number
+          format: double
+          nullable: true
+        rtd1:
+          type: number
+          format: double
+          nullable: true
+        rtd2:
+          type: number
+          format: double
+          nullable: true
+        rtd3:
+          type: number
+          format: double
+          nullable: true
+        rtd4:
+          type: number
+          format: double
+          nullable: true
+        rtd5:
+          type: number
+          format: double
+          nullable: true
+        rtd6:
+          type: number
+          format: double
+          nullable: true
+        rtd7:
+          type: number
+          format: double
+          nullable: true
+        tc0:
+          type: number
+          format: double
+          nullable: true
+        tc1:
+          type: number
+          format: double
+          nullable: true
+        tc2:
+          type: number
+          format: double
+          nullable: true
+        tc3:
+          type: number
+          format: double
+          nullable: true
+        tc4:
+          type: number
+          format: double
+          nullable: true
+        tc5:
+          type: number
+          format: double
+          nullable: true
+        tc6:
+          type: number
+          format: double
+          nullable: true
+        tc7:
+          type: number
+          format: double
+          nullable: true
+        tc8:
+          type: number
+          format: double
+          nullable: true
+        tc9:
+          type: number
+          format: double
+          nullable: true
+        tc10:
+          type: number
+          format: double
+          nullable: true
+        tc11:
+          type: number
+          format: double
+          nullable: true
+        tc12:
+          type: number
+          format: double
+          nullable: true
+        log:
+          type: string
+          format: uri
+        precise_data:
+          type: string
+          readOnly: true
+          default: true
+      required:
+      - data_type
+      - log
+      - precise_data
+      - url
+    DryingSpeedEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `1` - Slow
+        * `2` - Medium
+        * `3` - Fast
+        * `4` - Unknown
+    EmbeddedProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        profile_type:
+          allOf:
+          - $ref: '#/components/schemas/ProfileTypeEnum'
+          readOnly: true
+        batch_weight:
+          type: number
+          format: double
+          readOnly: true
+        reversed_drum_direction:
+          type: boolean
+          description: Profile roasts with reversed drum direction
+          readOnly: true
+      required:
+      - batch_weight
+      - id
+      - name
+      - profile_type
+      - reversed_drum_direction
+    EndConditionEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      description: |-
+        * `0` - None
+        * `1` - Roasting time target
+        * `2` - Development time target
+        * `3` - Development time percentage
+        * `4` - Bean temperature target
+        * `5` - BBP Drum temperature target
+    EventTypeEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      description: |-
+        * `0` - Charge
+        * `1` - Drop
+        * `2` - Name
+        * `3` - Manual
+        * `4` - Dryend
+        * `5` - Firstcrack
+        * `6` - Auto-detected Firstcrack
+        * `7` - Auto-detected Dryend
+        * `8` - Auto-detected Drop
+        * `None` - N/A
+    Firmware:
+      type: object
+      properties:
+        file_name:
+          type: string
+          description: Filename that was upladed to the firmeware store
+          maxLength: 256
+        fw_version:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        minimum_roest_os_version:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        roest_os:
+          allOf:
+          - $ref: '#/components/schemas/RoestOs'
+          readOnly: true
+      required:
+      - fw_version
+      - roest_os
+    FlatPage:
+      type: object
+      properties:
+        url:
+          type: string
+          maxLength: 100
+        title:
+          type: string
+          maxLength: 200
+        content:
+          type: string
+      required:
+      - title
+      - url
+    Inventory:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        customer_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        cultivar:
+          type: string
+          nullable: true
+          maxLength: 255
+        farm:
+          type: string
+          nullable: true
+          maxLength: 255
+        region:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        exporter:
+          type: string
+          nullable: true
+          maxLength: 255
+        importer:
+          type: string
+          nullable: true
+          maxLength: 255
+        producer:
+          type: string
+          nullable: true
+          maxLength: 255
+        bean_size:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/BeanSizeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        drying_speed:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/DryingSpeedEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        bean_process:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/BeanProcessEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        moisture:
+          type: number
+          format: double
+          nullable: true
+          description: In percent
+        water_activity:
+          type: number
+          format: double
+          nullable: true
+          description: Value 0-1
+        elevation:
+          type: number
+          format: double
+          nullable: true
+          description: Farm elevation in meters above sea level
+        density:
+          type: number
+          format: double
+          nullable: true
+          description: In g/ml
+        green_bean_color:
+          type: number
+          format: double
+          nullable: true
+        quality:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          nullable: true
+          description: 'Possible values: 0, 1, 2, 3, 4, 5'
+        reg_date:
+          type: string
+          format: date-time
+        current_weight:
+          type: number
+          format: double
+          description: In grams
+        initial_weight:
+          type: number
+          format: double
+          description: In grams
+        price:
+          type: number
+          format: double
+          nullable: true
+          description: In $/kg
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        is_archived:
+          type: boolean
+        customer:
+          type: string
+          format: uri
+      required:
+      - created
+      - current_weight
+      - customer
+      - customer_id
+      - id
+      - initial_weight
+      - modified
+      - reg_date
+      - url
+    Invite:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          readOnly: true
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/MachineInvite'
+          readOnly: true
+        signup_url:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        customer:
+          type: string
+          format: uri
+          nullable: true
+          description: Points to the customer that used this invite.
+      required:
+      - created
+      - machines
+      - modified
+      - signup_url
+      - url
+      - username
+    ListIdEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      description: |-
+        * `1` - Inventory
+        * `2` - Cupping
+        * `3` - Logs
+        * `4` - Profiles
+        * `5` - Chart
+    ListSetting:
+      type: object
+      properties:
+        list_id:
+          allOf:
+          - $ref: '#/components/schemas/ListIdEnum'
+          minimum: 0
+          maximum: 65535
+        column_settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnSetting'
+          readOnly: true
+      required:
+      - column_settings
+      - list_id
+    Log:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        first_comment:
+          allOf:
+          - $ref: '#/components/schemas/Comment'
+          readOnly: true
+        fc_temp:
+          type: number
+          format: double
+          readOnly: true
+        end_temp:
+          type: number
+          format: double
+          readOnly: true
+        charge_drum_temp:
+          type: number
+          format: double
+          nullable: true
+        end_drum_temp:
+          type: number
+          format: double
+          readOnly: true
+        profile_id:
+          type: integer
+          readOnly: true
+        machine_name:
+          type: string
+          readOnly: true
+        machine_slug:
+          type: string
+          readOnly: true
+        machine_prod_type:
+          type: integer
+          readOnly: true
+        profile_data:
+          allOf:
+          - $ref: '#/components/schemas/EmbeddedProfile'
+          readOnly: true
+        sensor_config:
+          allOf:
+          - $ref: '#/components/schemas/SensorConfig'
+          readOnly: true
+        inventory_id:
+          type: integer
+          readOnly: true
+        inventory_name:
+          type: string
+          readOnly: true
+        inventory_current_weight:
+          type: number
+          format: double
+          readOnly: true
+        latest_cupping_score:
+          type: string
+          readOnly: true
+        end_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        firstcrack_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        drop_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        events:
+          type: string
+          readOnly: true
+        batch_no:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        start_timestamp:
+          type: string
+          format: date-time
+          description: Charge time from roaster
+        event_flags:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        profile_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        name:
+          type: string
+          nullable: true
+          maxLength: 200
+        start_weight:
+          type: number
+          format: double
+          nullable: true
+        end_weight:
+          type: number
+          format: double
+          nullable: true
+        whole_bean_color:
+          type: number
+          format: double
+          nullable: true
+        ground_bean_color:
+          type: number
+          format: double
+          nullable: true
+        green_bean_color:
+          type: number
+          format: double
+          nullable: true
+        dryend_event_msec:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: Drying phase end event at msec offset from charge_timestamp
+        firstcrack_event_msec:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: First crack event at msec offset from charge_timestamp
+        bean_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        batch_uuid:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+        version:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        machine:
+          type: string
+          format: uri
+        profile:
+          type: string
+          format: uri
+          nullable: true
+        inventory:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - drop_timestamp
+      - end_drum_temp
+      - end_temp
+      - end_timestamp
+      - events
+      - fc_temp
+      - first_comment
+      - firstcrack_timestamp
+      - id
+      - inventory_current_weight
+      - inventory_id
+      - inventory_name
+      - latest_cupping_score
+      - machine
+      - machine_name
+      - machine_prod_type
+      - machine_slug
+      - profile_data
+      - profile_id
+      - sensor_config
+      - start_timestamp
+      - url
+    Machine:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        is_p2000:
+          type: boolean
+          readOnly: true
+        particle_id:
+          type: string
+          readOnly: true
+        machine_id:
+          type: string
+          readOnly: true
+        mqtt_config:
+          allOf:
+          - $ref: '#/components/schemas/MqttConfig'
+          readOnly: true
+        machine_image:
+          type: string
+          readOnly: true
+        sensor_config:
+          allOf:
+          - $ref: '#/components/schemas/SensorConfig'
+          readOnly: true
+        bbp_profile:
+          allOf:
+          - $ref: '#/components/schemas/BBPProfileMetadata'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        slug:
+          type: string
+          maxLength: 200
+          pattern: ^[-a-zA-Z0-9_]+$
+        notes:
+          type: string
+          nullable: true
+        next_batch_no:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        profile_slot_count:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        prod_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/ProdTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        prod_batch:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: The XX part of 'pXX_YYY' (Just number, no leading zeroes)
+        prod_number:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: The YYY part of 'pXX_YYY' (Just number, no leading zeroes)
+        elevation:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: Elevation in meters
+        owner:
+          type: string
+          format: uri
+          nullable: true
+        profile_slots:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+      required:
+      - bbp_profile
+      - id
+      - is_p2000
+      - machine_id
+      - machine_image
+      - mqtt_config
+      - name
+      - particle_id
+      - profile_slots
+      - sensor_config
+      - slug
+      - url
+    MachineInvite:
+      type: object
+      properties:
+        machine_name:
+          type: string
+          readOnly: true
+        machine_img:
+          type: string
+          readOnly: true
+        machine_id:
+          type: integer
+          readOnly: true
+      required:
+      - machine_id
+      - machine_img
+      - machine_name
+    MachineSlot:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        requested_profile_data:
+          allOf:
+          - $ref: '#/components/schemas/Profile'
+          readOnly: true
+        slot_index:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        loaded_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        machine:
+          type: string
+          format: uri
+        loaded_profile:
+          type: string
+          format: uri
+          nullable: true
+        requested_profile:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - machine
+      - requested_profile_data
+      - slot_index
+      - url
+    MachinetypeEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - S100/L100
+        * `1` - P3000
+        * `2` - S100/L100 p17
+    MessageTypeEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Info (blue)
+        * `1` - Warning (yellow)
+        * `2` - Error (red)
+    MqttConfig:
+      type: object
+      description: '" @brief    Serializer for Machine -> MqttConfig object.'
+      properties:
+        subscribe_password:
+          type: string
+          maxLength: 20
+          minLength: 20
+        topic:
+          type: string
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+      required:
+      - topic
+      - username
+    NullEnum:
+      enum:
+      - null
+    OAuthApplication:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        client_id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - client_id
+      - url
+    P2000PCB:
+      type: object
+      properties:
+        firmware:
+          allOf:
+          - $ref: '#/components/schemas/Firmware'
+          readOnly: true
+        machine_id:
+          type: string
+          description: 32 characters unique machine id
+          pattern: ^[a-f0-9]{32}$
+          maxLength: 32
+      required:
+      - firmware
+      - machine_id
+    PaginatedCommentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+    PaginatedCuppingFormList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingForm'
+    PaginatedCuppingSessionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSession'
+    PaginatedCustomerList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    PaginatedDatapointList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datapoint'
+    PaginatedFlatPageList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlatPage'
+    PaginatedInventoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Inventory'
+    PaginatedLogList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Log'
+    PaginatedMachineList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Machine'
+    PaginatedMachineSlotList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MachineSlot'
+    PaginatedOAuthApplicationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/OAuthApplication'
+    PaginatedProfileList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    PaginatedSystemMessageList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SystemMessage'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedComment:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        comment:
+          type: string
+        cupping_score:
+          type: string
+          nullable: true
+          maxLength: 20
+        log:
+          type: string
+          format: uri
+        author:
+          type: string
+          format: uri
+          nullable: true
+    PatchedCuppingSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        cupping_form:
+          type: string
+          format: uri
+        cupping_form_data:
+          allOf:
+          - $ref: '#/components/schemas/CuppingForm'
+          readOnly: true
+        customer:
+          type: string
+          format: uri
+        is_blind:
+          type: boolean
+        status:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/CuppingSessionStatusEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        cupping_samples:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionSample'
+        session_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CuppingSessionResult'
+          readOnly: true
+    PatchedCustomer:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        import_profile:
+          type: string
+          format: uri
+          writeOnly: true
+        enabled_beta_features:
+          type: array
+          items:
+            $ref: '#/components/schemas/BetaFeature'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+    PatchedInventory:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        customer_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        cultivar:
+          type: string
+          nullable: true
+          maxLength: 255
+        farm:
+          type: string
+          nullable: true
+          maxLength: 255
+        region:
+          type: string
+          nullable: true
+          maxLength: 255
+        country:
+          type: string
+          nullable: true
+          maxLength: 255
+        exporter:
+          type: string
+          nullable: true
+          maxLength: 255
+        importer:
+          type: string
+          nullable: true
+          maxLength: 255
+        producer:
+          type: string
+          nullable: true
+          maxLength: 255
+        bean_size:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/BeanSizeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        drying_speed:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/DryingSpeedEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        bean_process:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/BeanProcessEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        moisture:
+          type: number
+          format: double
+          nullable: true
+          description: In percent
+        water_activity:
+          type: number
+          format: double
+          nullable: true
+          description: Value 0-1
+        elevation:
+          type: number
+          format: double
+          nullable: true
+          description: Farm elevation in meters above sea level
+        density:
+          type: number
+          format: double
+          nullable: true
+          description: In g/ml
+        green_bean_color:
+          type: number
+          format: double
+          nullable: true
+        quality:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          nullable: true
+          description: 'Possible values: 0, 1, 2, 3, 4, 5'
+        reg_date:
+          type: string
+          format: date-time
+        current_weight:
+          type: number
+          format: double
+          description: In grams
+        initial_weight:
+          type: number
+          format: double
+          description: In grams
+        price:
+          type: number
+          format: double
+          nullable: true
+          description: In $/kg
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        is_archived:
+          type: boolean
+        customer:
+          type: string
+          format: uri
+    PatchedLog:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        first_comment:
+          allOf:
+          - $ref: '#/components/schemas/Comment'
+          readOnly: true
+        fc_temp:
+          type: number
+          format: double
+          readOnly: true
+        end_temp:
+          type: number
+          format: double
+          readOnly: true
+        charge_drum_temp:
+          type: number
+          format: double
+          nullable: true
+        end_drum_temp:
+          type: number
+          format: double
+          readOnly: true
+        profile_id:
+          type: integer
+          readOnly: true
+        machine_name:
+          type: string
+          readOnly: true
+        machine_slug:
+          type: string
+          readOnly: true
+        machine_prod_type:
+          type: integer
+          readOnly: true
+        profile_data:
+          allOf:
+          - $ref: '#/components/schemas/EmbeddedProfile'
+          readOnly: true
+        sensor_config:
+          allOf:
+          - $ref: '#/components/schemas/SensorConfig'
+          readOnly: true
+        inventory_id:
+          type: integer
+          readOnly: true
+        inventory_name:
+          type: string
+          readOnly: true
+        inventory_current_weight:
+          type: number
+          format: double
+          readOnly: true
+        latest_cupping_score:
+          type: string
+          readOnly: true
+        end_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        firstcrack_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        drop_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        events:
+          type: string
+          readOnly: true
+        batch_no:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        start_timestamp:
+          type: string
+          format: date-time
+          description: Charge time from roaster
+        event_flags:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        profile_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        name:
+          type: string
+          nullable: true
+          maxLength: 200
+        start_weight:
+          type: number
+          format: double
+          nullable: true
+        end_weight:
+          type: number
+          format: double
+          nullable: true
+        whole_bean_color:
+          type: number
+          format: double
+          nullable: true
+        ground_bean_color:
+          type: number
+          format: double
+          nullable: true
+        green_bean_color:
+          type: number
+          format: double
+          nullable: true
+        dryend_event_msec:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: Drying phase end event at msec offset from charge_timestamp
+        firstcrack_event_msec:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: First crack event at msec offset from charge_timestamp
+        bean_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        batch_uuid:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+        version:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        machine:
+          type: string
+          format: uri
+        profile:
+          type: string
+          format: uri
+          nullable: true
+        inventory:
+          type: string
+          format: uri
+          nullable: true
+    PatchedProfile:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set on shared profiles
+          readOnly: true
+        public_share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set when a profile is shared in public profile
+            library
+          readOnly: true
+        public_share_disabled:
+          type: boolean
+          description: Set to True to hide profile from public profile library
+          readOnly: true
+        downloads:
+          type: string
+          readOnly: true
+        author_name:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        temperature_bezier:
+          type: string
+          nullable: true
+        power_bezier:
+          type: string
+          nullable: true
+        rpm_bezier:
+          type: string
+          nullable: true
+        fan_bezier:
+          type: string
+          nullable: true
+        parent:
+          type: string
+          format: uri
+          readOnly: true
+        selected_filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMetadataFilterValue'
+        metadata_image:
+          allOf:
+          - $ref: '#/components/schemas/ProfileMetadataImage'
+          nullable: true
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileRating'
+          readOnly: true
+        customer_has_shared_profile:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        profile_type:
+          allOf:
+          - $ref: '#/components/schemas/ProfileTypeEnum'
+          minimum: 0
+          maximum: 65535
+        runlength:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
+            Roasting Time Target</i> for new profiles!'
+        preheat_temperature:
+          type: number
+          format: double
+        batch_weight:
+          type: number
+          format: double
+        end_condition:
+          allOf:
+          - $ref: '#/components/schemas/EndConditionEnum'
+          minimum: 0
+          maximum: 65535
+        end_condition_value:
+          type: number
+          format: double
+          description: Time in milliseconds, Percentage from 0 -> 100 or Temperature
+            in Celsius
+        is_bbp_profile:
+          type: boolean
+          title: Between batch protocol
+          description: Between batch protocol profile
+        reversed_drum_direction:
+          type: boolean
+          description: Profile roasts with reversed drum direction
+        is_leaf:
+          type: boolean
+          description: True if this item is the latest version of the profile
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        is_verified:
+          type: boolean
+          description: Set to true to add a validation star in the public profile
+            library
+        machinetype:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/MachinetypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        customer:
+          type: string
+          format: uri
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+        first_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCustomer'
+          readOnly: true
+        user_setting:
+          allOf:
+          - $ref: '#/components/schemas/UserSetting'
+          readOnly: true
+        two_factor:
+          type: string
+          readOnly: true
+    ProdTypeEnum:
+      enum:
+      - 0
+      - 1
+      description: |-
+        * `0` - P Series (S100/L100)
+        * `1` - P2000 Prototype
+        * `None` - N/A
+    Profile:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set on shared profiles
+          readOnly: true
+        public_share_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: Automatically set when a profile is shared in public profile
+            library
+          readOnly: true
+        public_share_disabled:
+          type: boolean
+          description: Set to True to hide profile from public profile library
+          readOnly: true
+        downloads:
+          type: string
+          readOnly: true
+        author_name:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        temperature_bezier:
+          type: string
+          nullable: true
+        power_bezier:
+          type: string
+          nullable: true
+        rpm_bezier:
+          type: string
+          nullable: true
+        fan_bezier:
+          type: string
+          nullable: true
+        parent:
+          type: string
+          format: uri
+          readOnly: true
+        selected_filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileMetadataFilterValue'
+        metadata_image:
+          allOf:
+          - $ref: '#/components/schemas/ProfileMetadataImage'
+          nullable: true
+        ratings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileRating'
+          readOnly: true
+        customer_has_shared_profile:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        profile_type:
+          allOf:
+          - $ref: '#/components/schemas/ProfileTypeEnum'
+          minimum: 0
+          maximum: 65535
+        runlength:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
+            Roasting Time Target</i> for new profiles!'
+        preheat_temperature:
+          type: number
+          format: double
+        batch_weight:
+          type: number
+          format: double
+        end_condition:
+          allOf:
+          - $ref: '#/components/schemas/EndConditionEnum'
+          minimum: 0
+          maximum: 65535
+        end_condition_value:
+          type: number
+          format: double
+          description: Time in milliseconds, Percentage from 0 -> 100 or Temperature
+            in Celsius
+        is_bbp_profile:
+          type: boolean
+          title: Between batch protocol
+          description: Between batch protocol profile
+        reversed_drum_direction:
+          type: boolean
+          description: Profile roasts with reversed drum direction
+        is_leaf:
+          type: boolean
+          description: True if this item is the latest version of the profile
+        notes:
+          type: string
+          nullable: true
+          maxLength: 2047
+        is_verified:
+          type: boolean
+          description: Set to true to add a validation star in the public profile
+            library
+        machinetype:
+          nullable: true
+          minimum: 0
+          maximum: 65535
+          oneOf:
+          - $ref: '#/components/schemas/MachinetypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        customer:
+          type: string
+          format: uri
+      required:
+      - author_name
+      - created
+      - customer
+      - customer_has_shared_profile
+      - downloads
+      - id
+      - modified
+      - name
+      - parent
+      - profile_type
+      - public_share_disabled
+      - public_share_uuid
+      - ratings
+      - share_uuid
+      - url
+    ProfileMetadataFilterValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - label
+    ProfileMetadataImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        b64_img_data:
+          type: string
+          nullable: true
+          description: raw b64 data. It is the <data> part of 'data:<type>;base64,<data>'
+          maxLength: 65536
+        b64_img_type:
+          type: string
+          nullable: true
+          description: b64 data mime type. It is the <type> part of 'data:<type>;base64,<data>'
+          maxLength: 255
+      required:
+      - id
+    ProfileRating:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rating:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+      required:
+      - id
+      - rating
+    ProfileTypeEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      description: |-
+        * `0` - Air Temperature Profile
+        * `1` - Bean Temperature Profile
+        * `2` - Power Profile
+        * `3` - Hybrid Air Temperature
+        * `4` - Hybrid Bean Temperature
+        * `5` - Inlet Temperature Profile
+        * `6` - Power by Bean Temperature
+        * `7` - Inlet Temperature by Bean Temperature
+    RoestOs:
+      type: object
+      properties:
+        file_name:
+          type: string
+          description: Filename that was upladed to the firmeware store
+          maxLength: 256
+        os_version:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - os_version
+    ScoreCalculationEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      description: |-
+        * `0` - None
+        * `1` - Aggregated
+        * `2` - Average
+        * `None` - Unknown
+    SensorConfig:
+      type: object
+      properties:
+        has_inlet:
+          type: boolean
+          description: Inlet temperature sensor
+        has_drum:
+          type: boolean
+          description: Drum temperature sensor
+        has_pressure:
+          type: boolean
+          description: Pressure sensor
+        has_reversible_drum:
+          type: boolean
+          description: Can roast in reversed direction
+        rtd_count:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        tc_count:
+          type: integer
+          maximum: 65535
+          minimum: 0
+        enabled_sensors:
+          type: string
+          readOnly: true
+      required:
+      - enabled_sensors
+    SystemMessage:
+      type: object
+      properties:
+        message_type:
+          allOf:
+          - $ref: '#/components/schemas/MessageTypeEnum'
+          description: |-
+            Message type is used for icon and color of displayed message
+
+            * `0` - Info (blue)
+            * `1` - Warning (yellow)
+            * `2` - Error (red)
+          minimum: 0
+          maximum: 65535
+        message:
+          type: string
+          description: This field supports markdown
+          maxLength: 2047
+        url:
+          type: string
+          format: uri
+          readOnly: true
+      required:
+      - message
+      - message_type
+      - url
+    TemperatureMetricEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Celsius
+        * `1` - Fahrenheit
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+        first_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCustomer'
+          readOnly: true
+        user_setting:
+          allOf:
+          - $ref: '#/components/schemas/UserSetting'
+          readOnly: true
+        two_factor:
+          type: string
+          readOnly: true
+      required:
+      - customers
+      - id
+      - is_staff
+      - two_factor
+      - url
+      - user_setting
+      - username
+    UserCustomer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        enabled_beta_features:
+          type: array
+          items:
+            $ref: '#/components/schemas/BetaFeature'
+          readOnly: true
+      required:
+      - enabled_beta_features
+      - id
+      - name
+      - url
+    UserSetting:
+      type: object
+      properties:
+        temperature_metric:
+          allOf:
+          - $ref: '#/components/schemas/TemperatureMetricEnum'
+          minimum: 0
+          maximum: 65535
+        weight_metric:
+          allOf:
+          - $ref: '#/components/schemas/WeightMetricEnum'
+          minimum: 0
+          maximum: 65535
+        color_theme:
+          allOf:
+          - $ref: '#/components/schemas/ColorThemeEnum'
+          minimum: 0
+          maximum: 65535
+        ror_interval:
+          type: integer
+          maximum: 18446744073709551615
+          minimum: 0
+          format: int64
+          description: Interval in seconds used to calculate RoR curves. 60 divided
+            by interval must be an integer
+        ror_interval_p3000:
+          type: integer
+          maximum: 18446744073709551615
+          minimum: 0
+          format: int64
+          description: Interval in seconds used to calculate RoR curves for p3000.
+            60 divided by interval must be an integer
+        max_chart_temperature_s100:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          description: Max y-axis temperature value in C of s100 charts. When value
+            is 0, use default value set in frontend
+        max_chart_temperature_p3000:
+          type: integer
+          maximum: 65535
+          minimum: 0
+          description: Max y-axis temperature value in C of p3000 charts. When value
+            is 0, use default value set in frontend
+        grouped_series_tooltip:
+          type: boolean
+        show_individual_sensors:
+          type: boolean
+        list_settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListSetting'
+          readOnly: true
+      required:
+      - list_settings
+    WeightMetricEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      description: |-
+        * `0` - Grams/kilograms
+        * `1` - Ounces/pounds
