@@ -12,7 +12,10 @@ store them in the .env file.
     python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.txt
-    ./run.sh
+
+    ./run.sh get_inventory.py
+
+    ./run.sh set_weight.py p3000-rXX-YY 2700
 
 # View OpenAPI schema
 

@@ -9,4 +9,10 @@ set -a
 source .env
 set +a
 
-python3 get_inventory.py
+if [[ -z $1 ]]
+then
+	echo "ERROR: missing argument. USAGE: ./run.sh get_inventory.py";
+	exit 1;
+fi
+
+python3 $@
