@@ -17,6 +17,8 @@ store them in the .env file.
 
     ./run.sh set_weight.py p3000-rXX-YY 2700
 
+    ./run.sh live_data.py p3000-rXX-YY
+
 # View OpenAPI schema
 
 Start a swagger server that serves the specification dokcumentation:
