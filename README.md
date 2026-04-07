@@ -19,6 +19,8 @@ store them in the .env file.
 
     ./run.sh live_data.py p3000-rXX-YY
 
+    ./run.sh create_profile.py
+
 # View OpenAPI schema
 
 Start a swagger server that serves the specification dokcumentation:
