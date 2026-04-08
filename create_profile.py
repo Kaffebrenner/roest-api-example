@@ -102,6 +102,26 @@ except requests.exceptions.HTTPError as err:
 
 returned_json = r.json()
 profile_id = returned_json["id"]
-
 print(returned_json)
 print(f"Created profile with id {profile_id}")
+
+try:
+    r = requests.patch(
+        f"{API_HOST}/profiles/{profile_id}/",
+        headers={"Authorization": f"Bearer {access_token}"},
+        json={
+            "temperature_bezier": [[0, 240], [360000, 270]],
+            "end_condition": EndCondition.TOTAL_TIME,
+            "end_condition_value": 5.5 * 60 * 1000,
+        },
+        timeout=10,
+    )
+    r.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    print(err.response.text)
+    raise SystemExit(err) from err
+
+returned_json = r.json()
+profile_id = returned_json["id"]
+print(returned_json)
+print(f"Updated profile with id {profile_id}")
