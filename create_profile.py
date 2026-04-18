@@ -9,6 +9,7 @@ import requests
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 API_HOST = os.environ.get("API_HOST")
+CONNECT_HOST = os.environ.get("CONNECT_HOST")
 
 parser = argparse.ArgumentParser(
     prog="create_profile",
@@ -125,3 +126,19 @@ returned_json = r.json()
 profile_id = returned_json["id"]
 print(returned_json)
 print(f"Updated profile with id {profile_id}")
+
+try:
+    r = requests.put(
+        f"{API_HOST}/profiles/{profile_id}/enable_share/",
+        headers={"Authorization": f"Bearer {access_token}"},
+        timeout=10,
+    )
+    r.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    print(err.response.text)
+    raise SystemExit(err) from err
+
+returned_json = r.json()
+profile_uuid = returned_json["share_uuid"]
+share_url = f"{CONNECT_HOST}/shared_profile/{profile_uuid}/"
+print(f"Shared profile available at {share_url}")
