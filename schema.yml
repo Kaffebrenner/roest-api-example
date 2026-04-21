@@ -2481,12 +2481,6 @@ components:
           - $ref: '#/components/schemas/ProfileTypeEnum'
           minimum: 0
           maximum: 65535
-        runlength:
-          type: integer
-          maximum: 65535
-          minimum: 0
-          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
-            Roasting Time Target</i> for new profiles!'
         preheat_temperature:
           type: number
           format: double
@@ -3189,14 +3183,9 @@ components:
         log:
           type: string
           format: uri
-        precise_data:
-          type: string
-          readOnly: true
-          default: true
       required:
       - data_type
       - log
-      - precise_data
       - url
     DryingSpeedEnum:
       enum:
@@ -3550,9 +3539,6 @@ components:
           type: number
           format: double
           readOnly: true
-        profile_id:
-          type: integer
-          readOnly: true
         machine_name:
           type: string
           readOnly: true
@@ -3698,7 +3684,6 @@ components:
       - machine_prod_type
       - machine_slug
       - profile_data
-      - profile_id
       - sensor_config
       - start_timestamp
       - url
@@ -3711,9 +3696,6 @@ components:
           readOnly: true
         id:
           type: integer
-          readOnly: true
-        is_p2000:
-          type: boolean
           readOnly: true
         particle_id:
           type: string
@@ -3790,7 +3772,6 @@ components:
       required:
       - bbp_profile
       - id
-      - is_p2000
       - machine_id
       - machine_image
       - mqtt_config
@@ -4498,9 +4479,6 @@ components:
           type: number
           format: double
           readOnly: true
-        profile_id:
-          type: integer
-          readOnly: true
         machine_name:
           type: string
           readOnly: true
@@ -4708,12 +4686,6 @@ components:
           - $ref: '#/components/schemas/ProfileTypeEnum'
           minimum: 0
           maximum: 65535
-        runlength:
-          type: integer
-          maximum: 65535
-          minimum: 0
-          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
-            Roasting Time Target</i> for new profiles!'
         preheat_temperature:
           type: number
           format: double
@@ -4740,6 +4712,7 @@ components:
         is_leaf:
           type: boolean
           description: True if this item is the latest version of the profile
+          readOnly: true
         notes:
           type: string
           nullable: true
@@ -4748,6 +4721,7 @@ components:
           type: boolean
           description: Set to true to add a validation star in the public profile
             library
+          readOnly: true
         machinetype:
           nullable: true
           minimum: 0
@@ -4887,12 +4861,6 @@ components:
           - $ref: '#/components/schemas/ProfileTypeEnum'
           minimum: 0
           maximum: 65535
-        runlength:
-          type: integer
-          maximum: 65535
-          minimum: 0
-          description: 'Legacy field for roasting time target<br>Use <i>End Condition:
-            Roasting Time Target</i> for new profiles!'
         preheat_temperature:
           type: number
           format: double
@@ -4919,6 +4887,7 @@ components:
         is_leaf:
           type: boolean
           description: True if this item is the latest version of the profile
+          readOnly: true
         notes:
           type: string
           nullable: true
@@ -4927,6 +4896,7 @@ components:
           type: boolean
           description: Set to true to add a validation star in the public profile
             library
+          readOnly: true
         machinetype:
           nullable: true
           minimum: 0
@@ -4944,6 +4914,8 @@ components:
       - customer_has_shared_profile
       - downloads
       - id
+      - is_leaf
+      - is_verified
       - modified
       - name
       - parent
@@ -5089,6 +5061,9 @@ components:
           type: string
           format: uri
           readOnly: true
+        permanent:
+          type: boolean
+          description: Should the message be impossible to dismiss?
       required:
       - message
       - message_type
