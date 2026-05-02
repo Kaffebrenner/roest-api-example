@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+from enum import IntEnum
 import os
 
 import requests
@@ -49,9 +50,18 @@ except requests.exceptions.HTTPError as err:
 
 machine_id = r.json()[0]["id"]
 
+
+class EventFlags(IntEnum):
+    CHARGE = 1 << 1
+    DROP = 1 << 2
+    FIRSTCRACK = 1 << 3
+    DRYEND = 1 << 5
+    MANUAL = 1 << 6
+
+
 try:
     r = requests.get(
-        f"{API_HOST}/logs/?event_flags=36&machine={machine_id}&page_size=3",
+        f"{API_HOST}/logs/?event_flags={EventFlags.DROP}&machine={machine_id}&page_size=3",
         headers={"Authorization": f"Bearer {access_token}"},
         timeout=10,
     )
