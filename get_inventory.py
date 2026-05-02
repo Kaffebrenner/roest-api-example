@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import argparse
 import os
 
 import requests
@@ -7,6 +8,12 @@ import requests
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 API_HOST = os.environ.get("API_HOST")
+
+parser = argparse.ArgumentParser(
+    prog="get_inventory",
+    description="Get the inventory list",
+)
+args = parser.parse_args()
 
 print(f"API_HOST: {API_HOST}")
 

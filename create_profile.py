@@ -15,6 +15,7 @@ parser = argparse.ArgumentParser(
     prog="create_profile",
     description="Create a new profile",
 )
+args = parser.parse_args()
 
 print(f"API_HOST: {API_HOST}")
 
