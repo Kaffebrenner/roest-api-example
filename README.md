@@ -1,3 +1,12 @@
+# ROEST API
+
+This provides an incomplete and potentially incorrect description of the ROEST
+API. It is intended to provide a starting point for custom integration with
+the API.
+
+The API does not provide any guarantees about stability and will break
+backwards compatibility.
+
 # Obtain credentials
 
 Create the .env file
