@@ -26,6 +26,7 @@ try:
             "client_id": CLIENT_ID,
             "client_secret": CLIENT_SECRET,
             "grant_type": "client_credentials",
+            "scope": "read write",
         },
         timeout=10,
     )
